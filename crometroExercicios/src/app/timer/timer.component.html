@@ -1,1 +1,21 @@
-<p>timer works!</p>
+<div [class]="'phase' + phase">
+    <div class="timerLeft">
+        {{formatTimeLeft(timeLeft)}}
+    </div>
+    <div>
+        Exercício {{currentEx + 1}}/{{this.exercises.length}}:{{this.exercises[this.currentEx].name}}
+    </div>
+    <div>
+        Repetição {{currentRep + 1}}/{{this.exercises.length}}:{{this.exercises[this.currentEx].repetitions}}
+    </div>
+    <div>
+        {{formatePhase(phase)}}
+    </div>
+
+    <div class="tools">
+        <button (click)="start()">Iniciar</button>
+        <button (click)="pause()">Pausar</button>
+        <button (click)="restart()">Reiniciar</button>
+        <button (click)="next()">Próximo</button>
+    </div>
+</div>

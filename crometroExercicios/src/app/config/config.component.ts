@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Exercise } from '../exercise'
 
 @Component({
@@ -8,7 +8,7 @@ import { Exercise } from '../exercise'
 })
 export class ConfigComponent implements OnInit {
 
-  exercises: Exercise[] = [];
+  @Input() exercises: Exercise[] = [];
 
   exercise: Exercise = {
     name: '',

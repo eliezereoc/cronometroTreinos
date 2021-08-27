@@ -1,9 +1,9 @@
 <div>
-  <div>
+  <div class="right">
     <button *ngIf="!config" (click)="config = true">Configurações</button> 
     <button *ngIf="config" (click)="config = false">Voltar</button> 
   </div>
   
-  <app-config *ngIf="config">Configurações</app-config>
-  <app-timer *ngIf="!config">Cronômetro</app-timer>
+  <app-config *ngIf="config" [exercises]="exercises">Configurações</app-config>
+  <app-timer *ngIf="!config" [exercises]="exercises">Cronômetro</app-timer>
 </div>
