@@ -1,21 +1,29 @@
-<div [class]="'phase' + phase">
+<div [class]="'phase' + ts.phase">
     <div class="timerLeft">
-        {{formatTimeLeft(timeLeft)}}
+        {{ts.timeLeft / 1000 | number: '1.1-1'}}
     </div>
-    <div>
-        Exercício {{currentEx + 1}}/{{this.exercises.length}}:{{this.exercises[this.currentEx].name}}
+    <div class="descricao">
+        Exercício {{ts.currentEx + 1}}/{{ts.exercises.length}}:{{ts.exercises[ts.currentEx].name}}
     </div>
-    <div>
-        Repetição {{currentRep + 1}}/{{this.exercises.length}}:{{this.exercises[this.currentEx].repetitions}}
+    <div class="descricao">
+        Repetição {{ts.currentRep + 1}}/{{ts.exercises.length}}:{{ts.exercises[ts.currentEx].repetitions}}
     </div>
-    <div>
-        {{formatePhase(phase)}}
+    <div class="descricao">
+        {{formatePhase(ts.phase)}}
     </div>
 
     <div class="tools">
-        <button (click)="start()">Iniciar</button>
-        <button (click)="pause()">Pausar</button>
-        <button (click)="restart()">Reiniciar</button>
-        <button (click)="next()">Próximo</button>
+        <button type="button" class="btn btn-primary" (click)="start()" title="Inicia o cronômetro">
+            <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>  
+        </button>
+        <button type="button" class="btn btn-primary" (click)="pause()" title="Pausa o cronômetro">
+            <span class="glyphicon glyphicon-pause" aria-hidden="true"></span> 
+        </button>
+        <button type="button" class="btn btn-primary" (click)="restart()" title="Reinicia o cronômetro">
+            <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> 
+        </button>
+        <button type="button" class="btn btn-primary" (click)="next()" title="Próximo exercício">
+            <span class="glyphicon glyphicon-forward" aria-hidden="true"></span> 
+        </button>
     </div>
 </div>

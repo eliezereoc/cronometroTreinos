@@ -1,38 +1,55 @@
+<form [formGroup]="exerciseForm" (ngSubmit)="add()">
+    <div div class="mb-3">
+        <label for="name" class="form-label">Exercícios:</label>
+        <input class="form-control" id="name" formControlName="name" aria-describedby="name">
+    </div>
+    <div div class="mb-3">
+        <label for="duration" class="form-label">Duração: </label>
+        <input class="form-control" type="number" id="duration" formControlName="duration" aria-describedby="duration">
+    </div>
+    <div div class="mb-3">
+        <label for="repetitions" class="form-label">Repetição:</label>
+        <input class="form-control" type="number" id="repetitions" formControlName="repetitions"
+            aria-describedby="repetitions">
+    </div>
+    <div div class="mb-3">
+        <label for="preparation" class="form-label">Preparação:</label>
+        <input class="form-control" type="number" id="preparation" formControlName="preparation"
+            aria-describedby="preparation">
+    </div>
+    <div div class="mb-3">
+        <label for="rest" class="form-label">Descanso:</label>
+        <input class="form-control" type="number" id="rest" formControlName="rest" aria-describedby="rest">
+    </div>
+    <button type="submit" class="btn btn-success" [disabled]="exerciseForm.invalid" title="Adicionar novo exercício a lista">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    </button>
+</form>
 <div>
-    <div>
-        Exercícios: <input [(ngModel)]="exercise.name">
-    </div>
-    <div>
-        Duração: <input type="number" [(ngModel)]="exercise.duration" >
-    </div>
-    <div>
-        Repetição: <input type="number" [(ngModel)]="exercise.repetitions" >
-    </div>
-    <div>
-        Preparação: <input type="number" [(ngModel)]="exercise.preparation" >
-    </div>
-    <div>
-        Descanso: <input type="number" [(ngModel)]="exercise.rest" >
-    </div>
-    <button (click)="add()">Adicionar</button>
-</div>
-<div>
-    <table>
-        <tr>
-            <th>Exercício</th>
-            <th>Duração</th>
-            <th>Repetição</th>
-            <th>Preparação</th>
-            <th>Descanso</th>
-            <th></th>
-        </tr>
-        <tr *ngFor="let exec of exercises; let i = index">
-            <td>{{exec.name}}</td>
-            <td>{{exec.duration}}</td>
-            <td>{{exec.repetitions}}</td>
-            <td>{{exec.preparation}}</td>
-            <td>{{exec.rest}}</td>
-            <td><button (click)="delete(i)">X</button></td>
-        </tr>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Exercício</th>
+                <th scope="col">Duração</th>
+                <th scope="col">Repetição</th>
+                <th scope="col">Preparação</th>
+                <th scope="col">Descanso</th>
+                <th scope="col">Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let exec of ts.exercises; let i = index">
+                <th scope="row">{{exec.name}}</th>
+                <td>{{exec.duration}}</td>
+                <td>{{exec.repetitions}}</td>
+                <td>{{exec.preparation}}</td>
+                <td>{{exec.rest}}</td>
+                <td>
+                    <button type="button" class="btn btn-danger" (click)="delete(i)" title="Excluir exercício atual">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
     </table>
 </div>
