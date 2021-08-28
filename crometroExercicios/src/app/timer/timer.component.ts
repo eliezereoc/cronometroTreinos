@@ -1,6 +1,7 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { interval } from 'rxjs';
 import { Exercise } from '../exercise';
+import { TimerSErvice } from '../timer.service';
 
 @Component({
   selector: 'app-timer',
@@ -9,17 +10,36 @@ import { Exercise } from '../exercise';
 })
 export class TimerComponent implements OnInit, OnDestroy{
 
-  @Input() exercises: Exercise[] = [];
-  currentEx: number = 0;
-  currentRep: number = 0;
-  phase: number = 0;
-  timeLeft: number = 0;
   interval: any;
 
-  constructor() { }
+  constructor(public ts: TimerSErvice) { }
 
   ngOnInit(): void {
-    this.restart();
+    this.ts.restart();
+  }
+  
+  start() {
+    let lastTime = Date.now();
+
+    if(!this.interval){
+      this.interval = setInterval(() => {
+        let currentTime = Date.now();
+        let ellapsedTimeMs = currentTime - lastTime;
+        lastTime = lastTime;
+        this.ts.decrementTimeLeft(ellapsedTimeMs);      
+      }, 100); 
+    }       
+  }
+
+  pause() {
+    if(this.interval){
+      clearInterval(this.interval);
+      this.interval = undefined;
+    }
+  }
+
+  ngOnDestroy() {
+    this.pause();
   }
 
   formatePhase(phase: number) {
@@ -39,78 +59,10 @@ export class TimerComponent implements OnInit, OnDestroy{
     return retorno;
   }
 
-  restart() {
-    this.currentEx = 0;
-    this.currentRep = 0;
-    this.phase = 0;
-    const ex = this.exercises[this.currentEx];
-    this.timeLeft = this.getTimeOfCurrentPhase();
+  restart(){
+    this.ts.restart();
   }
-
-  next() {
-   
-    if(this.phase < 2) {
-      this.phase++;    
-    } else {
-      const ex = this.exercises[this.currentEx];
-      if(this.currentRep < ex.preparation - 1){
-        this.currentRep++;
-        this.phase = 1;
-      } else {
-        if(this.currentEx < this.exercises.length) {
-          this.currentEx++;
-          this.currentRep = 0;
-          this.phase = 0;
-        } else {
-          return;
-        }
-      }
-    }       
-    this.timeLeft = this.getTimeOfCurrentPhase();  
+  next(){
+    this.ts.next();
   }
-
-  getTimeOfCurrentPhase() {
-    let retorno: number = 0;
-    const ex = this.exercises[this.currentEx];
-    switch (this.phase) {
-      case 0:
-        retorno = ex.preparation * 10;
-        break;
-      case 1:
-        retorno = ex.duration * 10;
-        break;
-      case 2:
-        retorno = ex.rest * 10;
-        break;
-    }
-    return retorno;
-  }
-
-  start() {
-    if(!this.interval){
-      this.interval = setInterval(() => {
-        if(this.timeLeft > 0) {
-          this.timeLeft--;
-        } else {
-          this.next();
-        }      
-      }, 100); 
-    }       
-  }
-
-  pause() {
-    if(this.interval){
-      clearInterval(this.interval);
-      this.interval = undefined;
-    }
-  }
-
-  ngOnDestroy() {
-    this.pause();
-  }
-
-  formatTimeLeft(time: number) {
-    return (time / 10).toString();
-  }
-
 }

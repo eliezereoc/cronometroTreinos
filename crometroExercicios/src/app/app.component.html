@@ -1,9 +1,13 @@
 <div>
   <div class="right">
-    <button *ngIf="!config" (click)="config = true">Configurações</button> 
-    <button *ngIf="config" (click)="config = false">Voltar</button> 
+    <button type="button" class="btn btn-primary" *ngIf="!config" (click)="config = true" title="Configuração de exercícios">
+      <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+    </button>
+    <button type="button" class="btn btn-secondary" *ngIf="config" (click)="config = false" title="Voltar para o cronômetro">
+      <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>      
+    </button>
   </div>
   
-  <app-config *ngIf="config" [exercises]="exercises">Configurações</app-config>
-  <app-timer *ngIf="!config" [exercises]="exercises">Cronômetro</app-timer>
+  <app-config *ngIf="config" >Configurações</app-config>
+  <app-timer *ngIf="!config" >Cronômetro</app-timer>
 </div>

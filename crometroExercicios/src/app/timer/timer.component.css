@@ -1,10 +1,12 @@
 :host {
     display: block;
     text-align: center;
+    margin-left: 4px;
 }
 
+
 .timerLeft {
-    font-size: 2rem;
+    font-size: 3rem;
 }
 div~div {
     margin-top: 4px;
@@ -20,4 +22,8 @@ button~button {
 }
 .phase2 {
     color: yellowgreen;
+}
+
+.descricao {
+    font-size: 2.2rem; 
 }
