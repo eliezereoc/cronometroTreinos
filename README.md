@@ -1,5 +1,6 @@
 # cronometroTreinos  
 ## [DEMO](https://crometro-exercicios.vercel.app/){:target="_blank" rel="noopener"}
+[go](http://stackoverflow.com){:target="_blank"}.
 Cronômetro para exercícos fisícos  
 >Cadastro de tempos de exercícos  
 >Número de repetições  
